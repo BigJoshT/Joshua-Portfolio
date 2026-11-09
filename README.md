@@ -36,9 +36,7 @@ Almost everything you'll want to change lives in a few plain text files.
 | The 5 platforms in the 3D orbit | `src/data/platforms.ts` (+ logos in `public/logos/`) |
 | Logo strip ("Connected tools") | `src/data/tech.ts` (+ icons in `public/tech/`) |
 | Client reviews | `src/data/testimonials.ts` |
-| FAQ | `src/data/faq.ts` |
-| Process steps | `src/data/process.ts` |
-| Your photo | replace `src/assets/portrait.jpg` (4:5, about 1200×1500) |
+| Your photo | replace `src/assets/about-portrait.webp` (4:5, about 1200×1500) |
 | Colours and fonts | `@theme` in `src/app/globals.css` |
 
 Any link left as `""` in `site.ts` is simply hidden on the site.
@@ -47,7 +45,7 @@ Any link left as `""` in `site.ts` is simply hidden on the site.
 
 1. **Your details.** In `src/lib/site.ts`, set your full name, contact email,
    stats, and any Upwork, Fiverr, LinkedIn or Instagram links.
-2. **Your photo.** Replace `src/assets/portrait.jpg`. Keep the same file name.
+2. **Your photo.** Replace `src/assets/about-portrait.webp`. Keep the same file name.
 3. **Your projects.** `src/data/projects.ts` contains six **sample** projects.
    Replace them with your real work: add a screenshot of each live site to
    `public/projects/`, then fill in the text. Set `featured: true` on your
