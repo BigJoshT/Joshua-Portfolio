@@ -1,0 +1,570 @@
+@import "tailwindcss";
+
+@source "../app/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../data/**/*.{ts,tsx}";
+
+/* ------------------------------------------------------------------
+   DESIGN TOKENS — minimal premium SaaS. Light ground, monochrome dark
+   structure, with green used as the accent.
+------------------------------------------------------------------ */
+@theme {
+  /* ground */
+  --color-white: #D6E6D1;
+  --color-canvas: #D6E6D1;
+  --color-surface: #D6E6D1;
+  --color-surface-2: #D6E6D1;
+
+  /* monochrome dark scale */
+  --color-navy: #080808;
+  --color-navy-2: #080808;
+  --color-navy-3: #080808;
+
+  /* text */
+  --color-ink: #080808;
+  --color-body: #080808;
+  --color-muted: rgba(8, 8, 8, 0.5);
+  --color-on-navy: #D6E6D1;
+
+  /* accent */
+  --color-accent: #32CD32;
+  --color-accent-soft: #32CD32;
+
+  /* lines */
+  --color-line: rgba(8, 8, 8, 0.12);
+  --color-line-navy: rgba(214, 230, 209, 0.14);
+
+  /* type */
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* radii — 12–14px, per spec */
+  --radius-btn: 0.75rem;
+  --radius-card: 0.875rem;
+}
+
+.glass-nav {
+  background-color: rgba(8, 8, 8, 0.08);
+  background-image: linear-gradient(
+    180deg,
+    rgba(214, 230, 209, 0.12) 0%,
+    rgba(214, 230, 209, 0.015) 18%,
+    rgba(8, 8, 8, 0.025) 55%,
+    rgba(8, 8, 8, 0.08) 100%
+  );
+  border-color: rgba(214, 230, 209, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(214, 230, 209, 0.24),
+    inset 0 -1px 0 rgba(214, 230, 209, 0.04);
+  -webkit-backdrop-filter: blur(8px) saturate(165%);
+  backdrop-filter: blur(8px) saturate(165%);
+}
+
+@media (min-width: 64rem) {
+  .about-photo-frame {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    height: auto;
+    aspect-ratio: auto;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-body);
+    font-family: var(--font-body);
+    font-size: 1.125rem; /* 18px */
+    font-weight: 400;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #D6E6D1;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   TYPE SCALE — fluid, but landing on the spec at desktop.
+------------------------------------------------------------------ */
+@utility text-hero {
+  font-size: clamp(2rem, 6vw, 4.5rem); /* → 72px */
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+@utility text-section {
+  font-size: clamp(2rem, 4vw, 3rem); /* → 48px */
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+@utility text-lead {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.7;
+}
+
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ------------------------------------------------------------------
+   SURFACES
+------------------------------------------------------------------ */
+@utility card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s;
+}
+
+@utility card-hover {
+  transform: translateY(-4px);
+  border-color: rgba(8, 8, 8, 0.24);
+  box-shadow: 0 18px 40px -20px rgba(8, 8, 8, 0.22);
+}
+
+.testimonials-section {
+  background-color: #f8f4ee;
+  background-image:
+    radial-gradient(
+      ellipse at 16% 12%,
+      rgba(255, 255, 255, 0.76),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 82% 86%,
+      rgba(221, 231, 211, 0.3),
+      transparent 44%
+    );
+}
+
+.testimonials-decoration {
+  z-index: 0;
+  color: rgba(116, 145, 111, 0.4);
+  stroke-width: 1.2;
+}
+
+.testimonials-carousel {
+  touch-action: pan-y;
+}
+
+.testimonial-card {
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 2rem 4rem 2.15rem 3.6rem / 2.4rem 2rem 3.2rem 2.2rem;
+  background: linear-gradient(155deg, #fff 0%, #fff 72%, #fdfcf9 100%);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px) rotate(-0.25deg);
+  border-color: rgba(50, 205, 50, 0.3);
+  box-shadow: 0 26px 56px -32px rgba(8, 8, 8, 0.3);
+}
+
+.project-carousel-stage {
+  touch-action: pan-y;
+  overflow: hidden;
+  perspective: 1400px;
+}
+
+.project-carousel-position {
+  transform-origin: center;
+  transform-style: preserve-3d;
+}
+
+.project-carousel-card {
+  min-width: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+  transition:
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 300ms ease,
+    box-shadow 300ms ease,
+    filter 300ms ease;
+}
+
+.project-carousel-preview img {
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-carousel-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(50, 205, 50, 0.45);
+  filter: brightness(1.025);
+}
+
+.project-carousel-card:hover .project-carousel-preview img {
+  transform: scale(1.035);
+}
+
+.project-carousel-art {
+  background-size: cover;
+}
+
+@property --glass-x {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+
+@property --glass-y {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+
+@property --glass-tilt-x {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --glass-tilt-y {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.service-atmosphere {
+  background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(
+      ellipse at 78% 12%,
+      rgba(255, 255, 255, 0.42),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 94% 48%,
+      rgba(50, 205, 50, 0.075),
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 58% 88%,
+      rgba(255, 255, 255, 0.32),
+      transparent 46%
+    );
+}
+
+.service-glass-card {
+  --glass-x: 50%;
+  --glass-y: 0%;
+  --glass-tilt-x: 0deg;
+  --glass-tilt-y: 0deg;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  background-color: rgba(214, 230, 209, 0.045);
+  background-image:
+    radial-gradient(
+      300px circle at var(--glass-x) var(--glass-y),
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.055) 34%,
+      transparent 72%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.025) 38%,
+      rgba(168, 201, 159, 0.055) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 1px 0 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(8, 8, 8, 0.055),
+    0 14px 34px -27px rgba(8, 8, 8, 0.34),
+    0 3px 8px -7px rgba(255, 255, 255, 0.76);
+  -webkit-backdrop-filter: blur(9px) saturate(155%) contrast(108%);
+  backdrop-filter: blur(9px) saturate(155%) contrast(108%);
+  transform: perspective(1000px) rotateX(var(--glass-tilt-x))
+    rotateY(var(--glass-tilt-y)) translate3d(0, 0, 0);
+  transition:
+    transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 320ms ease,
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+  will-change: transform;
+}
+
+.service-glass-card::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(
+      240px circle at var(--glass-x) var(--glass-y),
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.075) 30%,
+      transparent 72%
+    ),
+    linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.045) 16%,
+      transparent 38%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18),
+      transparent 20%
+    );
+  content: "";
+  opacity: 0.65;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.service-glass-card::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    230px circle at var(--glass-x) var(--glass-y),
+    rgba(255, 255, 255, 0.92),
+    rgba(255, 255, 255, 0.32) 42%,
+    rgba(255, 255, 255, 0.12) 76%
+  );
+  content: "";
+  opacity: 0.54;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  transition: opacity 320ms ease;
+}
+
+.service-glass-sheen {
+  position: absolute;
+  z-index: 1;
+  top: -55%;
+  bottom: -55%;
+  left: -65%;
+  width: 42%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.32) 48%,
+    rgba(255, 255, 255, 0.08) 58%,
+    transparent
+  );
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(-15%, 0, 0) rotate(12deg);
+}
+
+.service-glass-sheen.is-visible {
+  animation: service-card-sheen 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.service-glass-content {
+  pointer-events: auto;
+}
+
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .service-glass-card {
+    background-color: rgba(214, 230, 209, 0.58);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .service-glass-card[data-pointer-state="active"] {
+    transform: perspective(1000px) rotateX(var(--glass-tilt-x))
+      rotateY(var(--glass-tilt-y)) translate3d(0, -3px, 0);
+    border-color: rgba(255, 255, 255, 0.72);
+    background-color: rgba(214, 230, 209, 0.075);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.88),
+      inset 1px 0 0 rgba(255, 255, 255, 0.34),
+      inset 0 -1px 0 rgba(8, 8, 8, 0.045),
+      0 20px 42px -28px rgba(8, 8, 8, 0.38),
+      0 3px 12px -8px rgba(255, 255, 255, 0.72);
+    will-change: transform;
+    -webkit-backdrop-filter: blur(10px) saturate(172%) contrast(109%);
+    backdrop-filter: blur(10px) saturate(172%) contrast(109%);
+  }
+
+  .service-glass-card[data-pointer-state="active"]::before {
+    opacity: 1;
+  }
+
+  .service-glass-card[data-pointer-state="active"]::after {
+    opacity: 0.92;
+  }
+}
+
+.service-glass-card[data-pointer-state="resetting"] {
+  transition:
+    --glass-x 360ms ease,
+    --glass-y 360ms ease,
+    --glass-tilt-x 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    --glass-tilt-y 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+}
+
+.service-glass-card:active {
+  background-color: rgba(214, 230, 209, 0.1);
+}
+
+@keyframes service-card-sheen {
+  0% {
+    left: -65%;
+    opacity: 0;
+  }
+  16% {
+    opacity: 0.72;
+  }
+  100% {
+    left: 125%;
+    opacity: 0;
+  }
+}
+
+.service-ambient-glow {
+  animation: service-glow 12s ease-in-out infinite alternate;
+}
+
+@keyframes service-glow {
+  from {
+    opacity: 0.55;
+    transform: translate3d(-6px, 2px, 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(10px, -8px, 0) scale(1.06);
+  }
+}
+
+/* The one dark surface: hero + any panel that needs depth. */
+@utility navy-panel {
+  background: linear-gradient(
+    135deg,
+    var(--color-navy) 0%,
+    var(--color-navy-2) 55%,
+    var(--color-navy-3) 100%
+  );
+  color: var(--color-on-navy);
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(8, 8, 8, 0.07) 1px,
+    transparent 0
+  );
+  background-size: 28px 28px;
+}
+
+/* ------------------------------------------------------------------
+   ANIMATION
+------------------------------------------------------------------ */
+/* Marquee: each row renders its content twice, so -50% is one full loop. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  /* Scroll-reveal wrappers are server-rendered at opacity 0 for the animated
+     path. With reduced motion there is no animation to bring them in, so
+     force them visible here — CSS wins even if hydration leaves the inline
+     style untouched. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .service-ambient-glow {
+    animation: none;
+  }
+  .service-glass-card:hover,
+  .service-glass-card:active {
+    transform: none;
+  }
+  .service-glass-sheen.is-visible {
+    animation: none;
+  }
+  .service-glass-card {
+    transition: none;
+    will-change: auto;
+  }
+  .project-carousel-position,
+  .project-carousel-card,
+  .project-carousel-preview img {
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
