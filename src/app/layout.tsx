@@ -43,6 +43,11 @@ export const metadata: Metadata = {
     "small business website",
   ],
   authors: [{ name: site.name }],
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     type: "website",
     url: site.url,
