@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: site.name }],
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "/favicon-j.png",
+    shortcut: "/favicon-j.png",
+    apple: "/favicon-j.png",
   },
   openGraph: {
     type: "website",
