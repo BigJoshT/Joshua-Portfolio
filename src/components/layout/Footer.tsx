@@ -11,10 +11,8 @@ export function Footer() {
               {site.shortName}
               <span className="text-accent">.</span>
             </p>
-            <p className="mt-2 text-sm text-on-navy/60">{site.name}</p>
             <p className="mt-4 max-w-xs text-base text-on-navy/70">
-              Web designer building Shopify stores and websites on GoHighLevel,
-              WordPress, Squarespace, Wix and Hostinger.
+              Web designer creating modern business websites, landing pages, sales funnels and online stores. Helping brands build a stronger online presence with GoHighLevel, WordPress, Shopify, Wix and more.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
 {activeHire.map((h) => (
