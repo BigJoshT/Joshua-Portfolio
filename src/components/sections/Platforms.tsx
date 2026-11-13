@@ -15,14 +15,13 @@ export function Platforms() {
 
           <Reveal delay={0.06}>
             <h2 className="mt-3 text-section text-balance lg:text-[clamp(2.25rem,3vw,2.5rem)]">
-              Six platforms. One goal. A website that works for your business.
+              Let me help you find the perfect platform for your business.
             </h2>
           </Reveal>
 
           <Reveal delay={0.12}>
             <p className="mt-3 text-base leading-relaxed text-body sm:text-lg">
-              I work with six website platforms, choosing the right one based
-              on your business, goals and the experience you want to create.
+              Every business is different. I'll help you choose the right platform based on your goals, budget and the kind of website you want to build.
             </p>
           </Reveal>
 
