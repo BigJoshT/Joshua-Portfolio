@@ -30,7 +30,7 @@ export const platforms: Platform[] = [
   {
     id: "shopify",
     name: "Shopify",
-    logo: "/logos/shopify.webp",
+    logo: "/logos/shopify-transparent.webp",
     role: "Online stores",
     blurb: "Professional online stores designed to showcase and sell your products.",
   },

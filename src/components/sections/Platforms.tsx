@@ -30,9 +30,7 @@ export function Platforms() {
               {platforms.map((p) => (
                 <li key={p.id} className="flex min-w-0 gap-3">
                   <span
-                    className={`relative mt-0.5 h-9 w-9 shrink-0 ${
-                      p.id === "shopify" ? "rounded-lg bg-[#fff] p-1" : ""
-                    }`}
+                    className="relative mt-0.5 h-9 w-9 shrink-0"
                   >
                     <Image
                       src={p.logo}

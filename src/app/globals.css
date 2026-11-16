@@ -507,13 +507,22 @@
 /* ------------------------------------------------------------------
    ANIMATION
 ------------------------------------------------------------------ */
-/* Marquee: each row renders its content twice, so -50% is one full loop. */
-@keyframes marquee {
+/* Twelve identical sequences; one sequence is 1/12 of the moving track. */
+@keyframes marquee-left {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-100%);
+    transform: translateX(-8.3333333333%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-8.3333333333%);
+  }
+  to {
+    transform: translateX(0);
   }
 }
 
