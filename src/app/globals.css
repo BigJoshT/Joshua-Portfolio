@@ -507,8 +507,17 @@
 /* ------------------------------------------------------------------
    ANIMATION
 ------------------------------------------------------------------ */
+/* Keep animation references in CSS so production optimization retains keyframes. */
+.marquee-left {
+  animation: marquee-left-motion 50s linear infinite;
+}
+
+.marquee-right {
+  animation: marquee-right-motion 60s linear infinite;
+}
+
 /* Twelve identical sequences; one sequence is 1/12 of the moving track. */
-@keyframes marquee-left {
+@keyframes marquee-left-motion {
   from {
     transform: translateX(0);
   }
@@ -517,7 +526,7 @@
   }
 }
 
-@keyframes marquee-right {
+@keyframes marquee-right-motion {
   from {
     transform: translateX(-8.3333333333%);
   }

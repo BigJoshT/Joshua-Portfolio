@@ -40,10 +40,7 @@ function Row({ items, reverse = false }: { items: Tech[]; reverse?: boolean }) {
   return (
     <div className="relative overflow-hidden">
       <div
-        className="marquee-track flex w-max"
-        style={{
-          animation: (reverse ? "marquee-right " + 60 : "marquee-left " + 50) + "s linear infinite",
-        }}
+        className={"marquee-track flex w-max " + (reverse ? "marquee-right" : "marquee-left")}
       >
         {Array.from({ length: copies }, (_, copy) => (
           <ul
