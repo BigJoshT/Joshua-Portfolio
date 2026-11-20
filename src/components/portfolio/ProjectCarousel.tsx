@@ -233,7 +233,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
         <button
           type="button"
           onClick={() => moveBy(-1)}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-xl text-ink transition-colors hover:border-accent hover:bg-accent hover:text-white focus-visible:outline-offset-4"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-xl text-ink transition-colors button-motion hover:border-accent hover:bg-accent hover:text-white focus-visible:outline-offset-4"
           aria-label="Previous project"
         >
           ←
@@ -244,7 +244,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
               key={project.slug}
               type="button"
               onClick={() => setActiveSlug(project.slug)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
+              className={`h-2.5 rounded-full transition-all duration-300 button-motion ${
                 index === activeIndex
                   ? "w-8 bg-accent"
                   : "w-2.5 bg-ink/20 hover:bg-ink/40"
@@ -257,7 +257,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
         <button
           type="button"
           onClick={() => moveBy(1)}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-xl text-ink transition-colors hover:border-accent hover:bg-accent hover:text-white focus-visible:outline-offset-4"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-xl text-ink transition-colors button-motion hover:border-accent hover:bg-accent hover:text-white focus-visible:outline-offset-4"
           aria-label="Next project"
         >
           →

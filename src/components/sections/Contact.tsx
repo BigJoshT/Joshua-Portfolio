@@ -3,7 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { projectTypes } from "@/lib/contact";
-import { activeHire, activeSocials, site } from "@/lib/site";
+import { activeHire, activeSocials } from "@/lib/site";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -105,7 +105,7 @@ export function Contact() {
                           href={h.href}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="inline-flex items-center gap-2 rounded-lg bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5"
+                          className="inline-flex items-center gap-2 rounded-lg bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-all button-motion"
                         >
                           {h.label} ↗
                         </a>
@@ -114,20 +114,7 @@ export function Contact() {
                   </div>
                 )}
 
-                <div>
-                  <p className="text-sm font-semibold uppercase tracking-wider text-muted">
-                    Email
-                  </p>
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="mt-1 block break-all font-display text-lg font-bold text-ink no-underline transition-colors hover:text-accent"
-                  >
-                    {site.email}
-                  </a>
-                </div>
-
-                {/* Email already has its own block above, so only show
-                    the non-email profiles here (X, GitHub…) once added. */}
+                {/* Show other active profiles here if configured. */}
                 {elsewhere.length > 0 && (
                   <div>
                     <p className="text-sm font-semibold uppercase tracking-wider text-muted">
@@ -140,7 +127,7 @@ export function Contact() {
                             href={s.href}
                             target="_blank"
                             rel="noreferrer noopener"
-                            className="inline-block rounded-lg border border-line px-4 py-2 text-sm font-medium text-body transition-all hover:-translate-y-0.5 hover:border-ink/25 hover:text-ink"
+                            className="inline-block rounded-lg border border-line px-4 py-2 text-sm font-medium text-body transition-all button-motion hover:border-ink/25 hover:text-ink"
                           >
                             {s.label}
                           </a>
@@ -149,7 +136,6 @@ export function Contact() {
                     </ul>
                   </div>
                 )}
-
               </div>
             </Reveal>
           </div>
@@ -171,7 +157,7 @@ export function Contact() {
                   <button
                     type="button"
                     onClick={() => setStatus("idle")}
-                    className="mt-6 text-sm font-semibold text-accent hover:underline"
+                    className="mt-6 text-sm font-semibold text-accent button-motion hover:underline"
                   >
                     Send another
                   </button>
@@ -263,29 +249,25 @@ export function Contact() {
 
                   {status === "error" && (
                     <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
-                      {error} You can also email me directly at{" "}
-                      <a href={`mailto:${site.email}`} className="underline">
-                        {site.email}
-                      </a>
-                      .
+                      {error}
                     </p>
                   )}
 
                   <button
                     type="submit"
                     disabled={sending}
-                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-base font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-12px_rgba(255,122,0,0.7)] disabled:cursor-wait disabled:opacity-70 disabled:hover:translate-y-0"
+                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-base font-semibold text-white transition-all duration-300 button-motion disabled:cursor-wait disabled:opacity-70"
                   >
                     {sending ? "Sending…" : "Send message"}
                     {!sending && (
-                      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+                      <span aria-hidden className="transition-transform duration-300">
                         →
                       </span>
                     )}
                   </button>
 
                   <p className="text-center text-sm text-muted">
-                    I reply to everything within one working day.
+                    I reply immediately after I get your message.
                   </p>
                 </form>
               )}

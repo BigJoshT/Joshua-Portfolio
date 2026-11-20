@@ -53,7 +53,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div {...rise(0.16)} className="mt-4 flex flex-wrap gap-3">
-            <Button href="/portfolio" style={{ boxShadow: "none" }}>
+            <Button href="/portfolio">
               See my work
             </Button>
             <Button href="/#contact" variant="onNavy">

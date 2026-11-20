@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { activeHire, activeSocials, site } from "@/lib/site";
+import { activeHire, site } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -21,17 +21,12 @@ export function Footer() {
                   href={h.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition-all hover:-translate-y-0.5"
+                  className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition-all button-motion"
                 >
                   Hire me on {h.label} ↗
                 </a>
               ))}
-              <a
-                href={`mailto:${site.email}`}
-                className="rounded-lg border border-white/25 px-4 py-2 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-white/10"
-              >
-                Email me
-              </a>
+
             </div>
           </div>
 
@@ -55,22 +50,35 @@ export function Footer() {
 
           <div>
             <p className="font-display text-sm font-semibold tracking-wide text-white">
-              Elsewhere
+              Contact
             </p>
-            <ul className="mt-4 space-y-2.5">
-              {activeSocials.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    {...(s.href.startsWith("mailto:")
-                      ? {}
-                      : { target: "_blank", rel: "noreferrer noopener" })}
-                    className="text-base text-on-navy/70 transition-colors hover:text-white"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
+            <ul className="mt-4 space-y-3">
+              <li>
+                <a
+                  href={"mailto:" + site.email}
+                  className="flex items-center gap-2.5 break-all text-base text-on-navy/70 transition-colors hover:text-white"
+                >
+                  <svg aria-hidden="true" className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="m4 7 8 6 8-6" />
+                  </svg>
+                  <span>{site.email}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={"https://wa.me/" + site.whatsapp.replace(/\D/g, "")}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="flex items-center gap-2.5 text-base text-on-navy/70 transition-colors hover:text-white"
+                >
+                  <svg aria-hidden="true" className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20.4 11.6a8.3 8.3 0 0 1-12.3 7.2L3 20l1.3-4.7a8.4 8.4 0 1 1 16.1-3.7Z" />
+                    <path d="M8.4 7.6c.2-.4.5-.5.8-.5h.5c.2 0 .4.1.5.4l.8 1.9c.1.2.1.4-.1.6l-.6.7c-.2.2-.2.4 0 .6.5.9 1.2 1.5 2 2 .2.1.4.1.6-.1l.7-.8c.2-.2.4-.3.7-.2l1.8.9c.3.1.4.3.4.5 0 .4-.2 1.1-.7 1.5-.5.4-1 .6-1.7.5-1-.1-2.2-.6-3.6-1.8-1.5-1.3-2.5-2.9-2.8-4-.2-.8 0-1.6.7-2.2Z" />
+                  </svg>
+                  <span>{site.whatsapp}</span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -79,12 +87,6 @@ export function Footer() {
           <p className="text-sm text-on-navy/50">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
-          <a
-            href={`mailto:${site.email}`}
-            className="text-sm text-on-navy/70 transition-colors hover:text-white"
-          >
-            {site.email}
-          </a>
         </div>
       </div>
     </footer>

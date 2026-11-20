@@ -82,7 +82,7 @@ export default async function CaseStudyPage({
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="group inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-white shadow-[0_10px_24px_-10px_rgba(255,122,0,0.6)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-12px_rgba(255,122,0,0.7)]"
+              className="group inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 button-motion"
             >
               Visit live site
               <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">

@@ -276,7 +276,7 @@ export function Testimonials() {
             <button
               type="button"
               onClick={() => changePage(-1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 bg-white/70 text-xl text-ink transition-colors hover:border-accent hover:bg-accent hover:text-white"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 bg-white/70 text-xl text-ink transition-colors button-motion hover:border-accent hover:bg-accent hover:text-white"
               aria-label="Previous testimonials"
             >
               ←
@@ -304,7 +304,7 @@ export function Testimonials() {
             <button
               type="button"
               onClick={() => changePage(1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 bg-white/70 text-xl text-ink transition-colors hover:border-accent hover:bg-accent hover:text-white"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 bg-white/70 text-xl text-ink transition-colors button-motion hover:border-accent hover:bg-accent hover:text-white"
               aria-label="Next testimonials"
             >
               →

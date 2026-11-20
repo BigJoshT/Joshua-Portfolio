@@ -33,6 +33,7 @@ export const site = {
   /** See resolveSiteUrl() above. */
   url: resolveSiteUrl(),
   email: "ojojoshua330@gmail.com",
+  whatsapp: "+2349121760936",
   available: true,
 
   /**

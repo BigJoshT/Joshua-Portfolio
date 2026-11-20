@@ -23,6 +23,7 @@ export function Navbar() {
   const [headerVisible, setHeaderVisible] = useState(true);
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [onHero, setOnHero] = useState(pathname === "/");
   const previousScrollY = useRef(0);
   const directionDistance = useRef(0);
   const previousDirection = useRef(0);
@@ -33,6 +34,8 @@ export function Navbar() {
 
     const onScroll = () => {
       const currentY = Math.max(0, window.scrollY);
+      const hero = pathname === "/" ? document.querySelector(".navy-panel") : null;
+      setOnHero(Boolean(hero && hero.getBoundingClientRect().bottom > 16));
       const delta = currentY - previousScrollY.current;
       previousScrollY.current = currentY;
 
@@ -63,9 +66,10 @@ export function Navbar() {
       directionDistance.current = 0;
     };
 
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [open]);
+  }, [open, pathname]);
 
   /* ---- scrollspy: which section am I looking at? ---- */
   useEffect(() => {
@@ -130,9 +134,9 @@ export function Navbar() {
           {/* ---------------- logo ---------------- */}
           <Link
             href="/"
-            className="shrink-0 font-display text-lg font-bold tracking-tight text-accent"
+            className={`shrink-0 font-display text-lg font-bold tracking-tight transition-colors duration-200 ${onHero ? "text-accent" : "text-ink"}`}
           >
-            {site.shortName}<span className="text-white">.</span>
+            {site.shortName}<span className={onHero ? "text-white" : "text-ink"}>.</span>
           </Link>
 
           {/* ---------------- links, with the sliding pill ---------------- */}
@@ -144,7 +148,13 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     className={`relative z-10 block rounded-full px-4 py-2 text-[0.9375rem] font-medium transition-colors duration-200 ${
-                      active ? "text-accent" : "text-accent/75 hover:text-accent"
+                      onHero
+                        ? active
+                          ? "text-accent"
+                          : "text-accent/75 hover:text-accent"
+                        : active
+                          ? "text-ink"
+                          : "text-ink/75 hover:text-ink"
                     }`}
                   >
                     {item.label}
@@ -173,7 +183,7 @@ export function Navbar() {
           <div className="flex shrink-0 items-center gap-2">
             <Link
               href="/#contact"
-              className="hidden rounded-full bg-accent px-5 py-2.5 text-[0.9375rem] font-semibold text-white transition-all duration-300 hover:shadow-[0_10px_24px_-10px_rgba(255,122,0,0.8)] xl:block"
+              className="hidden rounded-full bg-accent px-5 py-2.5 text-[0.9375rem] font-semibold text-white transition-all duration-300 button-motion xl:block"
             >
               Start a project
             </Link>
@@ -186,7 +196,7 @@ export function Navbar() {
               }}
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
-              className="flex h-11 w-11 items-center justify-center rounded-full bg-navy xl:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-navy button-motion xl:hidden"
             >
               <span className="relative block h-3 w-4">
                 <span
@@ -246,7 +256,7 @@ export function Navbar() {
               <Link
                 href="/#contact"
                 onClick={() => setOpen(false)}
-                className="block rounded-xl bg-accent py-4 text-center text-base font-semibold text-white"
+                className="block rounded-xl bg-accent py-4 text-center text-base font-semibold text-white button-motion"
               >
                 Start a project
               </Link>
@@ -264,12 +274,7 @@ export function Navbar() {
                 </a>
               ))}
 
-              <a
-                href={`mailto:${site.email}`}
-                className="mt-6 block break-all text-center text-base text-on-navy/70"
-              >
-                {site.email}
-              </a>
+
             </motion.div>
           </motion.div>
         )}

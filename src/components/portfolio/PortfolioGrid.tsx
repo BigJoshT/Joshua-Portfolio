@@ -41,7 +41,7 @@ export function PortfolioGrid() {
                   role="tab"
                   aria-selected={active}
                   onClick={() => setFilter(c)}
-                  className={`rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-300 ${
+                  className={`rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-300 button-motion ${
                     active
                       ? "border-accent bg-accent text-white"
                       : "border-line bg-white text-body hover:border-ink/25 hover:text-ink"
@@ -87,7 +87,7 @@ export function PortfolioGrid() {
               setQuery("");
               setFilter("All");
             }}
-            className="mt-3 text-sm font-semibold text-accent hover:underline"
+            className="mt-3 text-sm font-semibold text-accent button-motion hover:underline"
           >
             Clear the filters
           </button>
