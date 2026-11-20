@@ -70,7 +70,7 @@ export function Contact() {
   return (
     <section id="contact" className="bg-surface py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+        <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-20">
           {/* ---------------- pitch ---------------- */}
           <div>
             <Reveal>

@@ -15,26 +15,34 @@ type SlideCustom = { direction: number; reduced: boolean };
 
 const slideVariants: Variants = {
   enter: ({ direction, reduced }: SlideCustom) => ({
-    x: reduced ? 0 : direction > 0 ? 88 : -88,
+    x: reduced ? 0 : direction > 0 ? 56 : -56,
+    y: reduced ? 0 : 12,
     opacity: reduced ? 1 : 0,
-    scale: reduced ? 1 : 0.965,
-    filter: reduced ? "blur(0px)" : "blur(4px)",
+    scale: reduced ? 1 : 0.975,
+    rotate: reduced ? 0 : direction > 0 ? 1.2 : -1.2,
   }),
   center: {
     x: 0,
+    y: 0,
     opacity: 1,
     scale: 1,
-    filter: "blur(0px)",
+    rotate: 0,
   },
   exit: ({ direction, reduced }: SlideCustom) => ({
-    x: reduced ? 0 : direction > 0 ? -72 : 72,
+    x: reduced ? 0 : direction > 0 ? -40 : 40,
+    y: reduced ? 0 : -6,
     opacity: reduced ? 1 : 0,
-    scale: reduced ? 1 : 0.985,
-    filter: reduced ? "blur(0px)" : "blur(2px)",
-    transition: {
-      duration: reduced ? 0 : 0.48,
-      ease: [0.4, 0, 0.2, 1],
-    },
+    scale: reduced ? 1 : 0.99,
+    rotate: reduced ? 0 : direction > 0 ? -0.8 : 0.8,
+    transition: reduced
+      ? { duration: 0 }
+      : {
+          x: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+          y: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+          opacity: { duration: 0.22, ease: "easeOut" },
+          scale: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+          rotate: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+        },
   }),
 };
 
@@ -191,7 +199,7 @@ export function Testimonials() {
           }}
         >
           <div className="relative h-[22rem] sm:h-[21rem]">
-            <AnimatePresence initial={false} custom={slideCustom}>
+            <AnimatePresence initial={false} mode="wait" custom={slideCustom}>
               <motion.ul
                 key={`${activeIndex}-${itemsPerPage}`}
                 custom={slideCustom}
@@ -200,8 +208,11 @@ export function Testimonials() {
                 animate="center"
                 exit="exit"
                 transition={{
-                  duration: reducedMotion ? 0 : 0.72,
-                  ease: [0.22, 1, 0.36, 1],
+                  x: { type: "spring", stiffness: 115, damping: 21, mass: 0.85 },
+                  y: { type: "spring", stiffness: 115, damping: 21, mass: 0.85 },
+                  scale: { type: "spring", stiffness: 115, damping: 21, mass: 0.85 },
+                  rotate: { type: "spring", stiffness: 115, damping: 21, mass: 0.85 },
+                  opacity: { duration: reducedMotion ? 0 : 0.3, ease: "easeOut" },
                 }}
                 aria-label={`Testimonials ${String(activeIndex + 1).padStart(2, "0")} of ${String(testimonials.length).padStart(2, "0")}`}
                 className="absolute inset-0 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-12"

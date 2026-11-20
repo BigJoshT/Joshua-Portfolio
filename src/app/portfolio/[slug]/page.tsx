@@ -105,7 +105,7 @@ export default async function CaseStudyPage({
               fill
               preload
               sizes="(max-width: 896px) 100vw, 896px"
-              className="object-cover"
+              className={project.scrollPreview ? "object-cover object-top" : "object-cover"}
             />
           ) : (
             <>

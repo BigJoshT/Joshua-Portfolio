@@ -10,10 +10,62 @@ import {
   type MouseEvent,
   type PointerEvent,
 } from "react";
+import type { CSSProperties } from "react";
 import type { Project } from "@/data/projects";
 
 const cardClassName =
   "project-carousel-card flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface text-left shadow-[0_24px_70px_-34px_rgba(8,8,8,0.45)]";
+
+function ScrollingProjectPreview({ src, alt }: { src: string; alt: string }) {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const [scrollDistance, setScrollDistance] = useState(0);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const image = imageRef.current;
+    if (!viewport || !image) return;
+
+    const measure = () => {
+      setScrollDistance(Math.max(0, image.offsetHeight - viewport.clientHeight));
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(viewport);
+    observer.observe(image);
+    image.addEventListener("load", measure);
+    measure();
+
+    return () => {
+      observer.disconnect();
+      image.removeEventListener("load", measure);
+    };
+  }, [src]);
+
+  const duration = Math.max(10, (scrollDistance / 150) * 2 + 1);
+  const previewStyle = {
+    "--preview-offset": `-${scrollDistance}px`,
+    "--preview-duration": `${duration}s`,
+  } as CSSProperties;
+
+  return (
+    <div
+      ref={viewportRef}
+      className="project-page-preview absolute inset-0 overflow-hidden bg-[#080808]"
+      style={previewStyle}
+    >
+      <Image
+        ref={imageRef}
+        src={src}
+        alt={alt}
+        width={1920}
+        height={4359}
+        draggable={false}
+        sizes="(max-width: 640px) 86vw, (max-width: 1024px) 72vw, 570px"
+        className="project-page-preview-image block h-auto w-full max-w-none"
+      />
+    </div>
+  );
+}
 
 export function ProjectCarousel({ projects }: { projects: Project[] }) {
   const [activeSlug, setActiveSlug] = useState(projects[0]?.slug ?? "");
@@ -116,14 +168,45 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
             <>
               <div className="project-carousel-preview relative aspect-[16/10] overflow-hidden">
                 {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} project preview`}
-                    fill
-                    draggable={false}
-                    sizes="(max-width: 640px) 86vw, (max-width: 1024px) 72vw, 570px"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
-                  />
+                  project.scrollPreview ? (
+                    <>
+                      <ScrollingProjectPreview
+                        src={project.image}
+                        alt={`${project.title} full website preview`}
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/25 via-transparent to-black/70"
+                      />
+                      <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between p-5 sm:p-7">
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="rounded-full border border-white/25 bg-black/20 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm">
+                            {project.category}
+                          </span>
+                          <span className="text-xs font-medium text-white/80">
+                            {project.year}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                            Project preview
+                          </p>
+                          <p className="mt-2 max-w-[15ch] font-display text-2xl font-bold leading-tight text-white sm:text-4xl">
+                            {project.platform ?? project.category}
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} project preview`}
+                      fill
+                      draggable={false}
+                      sizes="(max-width: 640px) 86vw, (max-width: 1024px) 72vw, 570px"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+                    />
+                  )
                 ) : (
                   <div
                     aria-hidden="true"

@@ -17,6 +17,8 @@ export type Project = {
   cover: [string, string];
   /** Cover image in public/projects/: 1200×750 (16:10) WebP or JPG. */
   image?: string;
+  /** Scroll a full-page screenshot inside the project carousel preview on hover. */
+  scrollPreview?: boolean;
   /** Set true for the three shown on the home page. */
   featured?: boolean;
   /** Live site: shows a "Visit live site" button on the case study when set. */
@@ -38,6 +40,28 @@ export type Project = {
    Delete the samples once you have three or more of your own.
 ------------------------------------------------------------------ */
 export const projects: Project[] = [
+  {
+    slug: "upturn-website",
+    title: "Upturn Website",
+    summary:
+      "A full WordPress website for Upturn, bringing together its mission, team, issue-area research, publications, careers and ways to stay connected.",
+    category: "Business Website",
+    platform: "WordPress",
+    year: 2026,
+    tags: ["WordPress", "Business Website", "Technology", "Equity & Justice"],
+    challenge:
+      "Make a broad body of research and advocacy easy to explore while clearly communicating Upturn’s mission and work across technology, equity and justice.",
+    solution:
+      "Built a WordPress website with clear navigation for About, Team, Careers and seven issue areas, plus a searchable archive of reports, studies, articles and policy work.",
+    results: [
+      "A complete website that helps visitors explore Upturn’s mission, research and advocacy, find information about the team and careers, and stay connected through contact and newsletter links.",
+    ],
+    cover: ["#3c3cb1", "#242143"],
+    image: "/projects/upturn-website.png",
+    scrollPreview: true,
+    liveUrl: "https://upturn.org",
+    featured: true,
+  },
   {
     slug: "sample-coaching-funnel",
     title: "Sample: Coaching Funnel",

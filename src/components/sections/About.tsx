@@ -6,26 +6,26 @@ import { site } from "@/lib/site";
 
 export function About() {
   return (
-    <section id="about" className="bg-surface py-20 md:py-28">
-      <div className="mx-auto grid max-w-6xl items-stretch gap-14 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 xl:gap-20">
+    <section id="about" className="bg-surface py-16 md:py-20 lg:flex lg:min-h-[100svh] lg:items-center lg:py-16">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 sm:px-6 lg:items-stretch lg:grid-cols-[0.85fr_1.15fr] lg:gap-14 xl:gap-16">
         <Reveal className="lg:h-full">
           <div className="about-photo-column relative lg:h-full">
             <div
               aria-hidden
-              className="absolute -bottom-5 -left-5 h-full w-full rounded-2xl bg-accent"
+              className="absolute -bottom-4 -left-4 h-full w-full rounded-2xl bg-accent"
             />
-            <div className="about-photo-frame relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-surface-2">
+            <div className="about-photo-frame relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-surface-2 lg:h-full lg:aspect-auto">
               <Image
                 src={portrait}
                 alt={`${site.name}, web designer`}
                 fill
                 placeholder="blur"
                 sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
+                className="object-cover lg:object-top"
               />
             </div>
 
-            <div className="absolute -bottom-6 right-6 flex min-w-36 justify-center rounded-xl bg-accent px-5 py-3 text-center shadow-lg">
+            <div className="absolute -bottom-4 right-5 flex min-w-36 justify-center rounded-xl bg-accent px-5 py-3 text-center shadow-lg">
               <p className="font-display text-sm font-bold text-white">
                 JOSHUA
               </p>
@@ -39,13 +39,13 @@ export function About() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <h2 className="mt-4 text-section text-balance">
+            <h2 className="mt-3 text-section text-balance">
               Meet the designer.
             </h2>
           </Reveal>
 
           <Reveal delay={0.12}>
-            <div className="mt-6 space-y-5 text-lead text-body">
+            <div className="mt-4 space-y-3 text-lead text-body lg:text-base lg:leading-relaxed">
               <p>
                 Hey, I&apos;m Joshua, a web designer who enjoys turning ideas
                 into beautiful, functional websites.
@@ -69,13 +69,13 @@ export function About() {
           </Reveal>
 
           <Reveal delay={0.18}>
-            <p className="mt-6 font-display text-lg font-bold text-accent sm:text-xl">
+            <p className="mt-4 font-display text-lg font-bold text-accent sm:text-xl">
               Let&apos;s create something great.
             </p>
           </Reveal>
 
-          <Reveal delay={0.24} className="mt-auto pt-10">
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4 sm:gap-x-5">
+          <Reveal delay={0.24} className="mt-auto pt-6 lg:pt-0">
+            <dl className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4 sm:gap-x-5">
               {site.stats.map((stat) => (
                 <div key={stat.label} className="min-w-0">
                   <dt className="sr-only">{stat.label}</dt>
