@@ -16,7 +16,17 @@ import type { Project } from "@/data/projects";
 const cardClassName =
   "project-carousel-card flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface text-left shadow-[0_24px_70px_-34px_rgba(8,8,8,0.45)]";
 
-function ScrollingProjectPreview({ src, alt }: { src: string; alt: string }) {
+function ScrollingProjectPreview({
+  src,
+  alt,
+  width,
+  height,
+}: {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const [scrollDistance, setScrollDistance] = useState(0);
@@ -57,8 +67,8 @@ function ScrollingProjectPreview({ src, alt }: { src: string; alt: string }) {
         ref={imageRef}
         src={src}
         alt={alt}
-        width={1920}
-        height={4359}
+        width={width}
+        height={height}
         draggable={false}
         sizes="(max-width: 640px) 86vw, (max-width: 1024px) 72vw, 570px"
         className="project-page-preview-image block h-auto w-full max-w-none"
@@ -173,6 +183,8 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
                       <ScrollingProjectPreview
                         src={project.image}
                         alt={`${project.title} full website preview`}
+                        width={project.previewDimensions?.width ?? 1920}
+                        height={project.previewDimensions?.height ?? 4359}
                       />
                       <div
                         aria-hidden="true"
