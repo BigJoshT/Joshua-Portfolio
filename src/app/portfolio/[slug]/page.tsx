@@ -97,7 +97,7 @@ export default async function CaseStudyPage({
       )}
 
       <Reveal delay={0.18}>
-        <div className="relative mt-12 aspect-[16/8] overflow-hidden rounded-2xl border border-line">
+        <div className="relative mt-8 aspect-[4/3] overflow-hidden rounded-2xl border border-line sm:mt-12 sm:aspect-[16/8]">
           {project.image ? (
             <Image
               src={project.image}

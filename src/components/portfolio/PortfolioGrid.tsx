@@ -41,7 +41,7 @@ export function PortfolioGrid() {
                   role="tab"
                   aria-selected={active}
                   onClick={() => setFilter(c)}
-                  className={`rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-300 button-motion ${
+                  className={`min-h-11 rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-300 button-motion ${
                     active
                       ? "border-accent bg-accent text-white"
                       : "border-line bg-white text-body hover:border-ink/25 hover:text-ink"

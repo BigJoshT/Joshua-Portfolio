@@ -152,7 +152,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
       aria-roledescription="carousel"
     >
       <div
-        className="project-carousel-stage relative mx-[-1rem] h-[28rem] overflow-hidden sm:mx-0 sm:h-[37rem] lg:h-[39rem]"
+        className="project-carousel-stage relative mx-[-1rem] h-[34rem] overflow-hidden sm:mx-0 sm:h-[37rem] lg:h-[39rem]"
         onKeyDown={handleKeyDown}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
@@ -172,7 +172,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
           const [from, to] = project.cover;
           const isActive = index === activeIndex;
           const sizeClassName =
-            "h-[26rem] sm:h-[34rem] lg:h-[36rem] w-[min(78vw,35.625rem)]";
+            "h-[32rem] sm:h-[34rem] lg:h-[36rem] w-[min(calc(100vw-2rem),35.625rem)] sm:w-[min(78vw,35.625rem)]";
 
           const contents = (
             <>
@@ -279,6 +279,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
             <div
               key={project.slug}
               className={`project-carousel-position absolute left-1/2 top-1/2 ${sizeClassName}`}
+              data-active={isActive ? "true" : "false"}
               style={{
                 zIndex: 10 - distance,
                 opacity: visible ? opacity : 0,

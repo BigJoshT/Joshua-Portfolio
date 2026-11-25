@@ -9,7 +9,7 @@ import {
 } from "motion/react";
 import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { testimonials } from "@/data/testimonials";
+import { testimonials, type Testimonial } from "@/data/testimonials";
 
 type SlideCustom = { direction: number; reduced: boolean };
 
@@ -85,6 +85,7 @@ export function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(2);
   const [direction, setDirection] = useState(1);
+  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
@@ -94,6 +95,21 @@ export function Testimonials() {
     media.addEventListener("change", updateItemsPerPage);
     return () => media.removeEventListener("change", updateItemsPerPage);
   }, []);
+
+  useEffect(() => {
+    if (!selectedTestimonial) return;
+
+    const handleDialogKeyDown = (event: globalThis.KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedTestimonial(null);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleDialogKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleDialogKeyDown);
+    };
+  }, [selectedTestimonial]);
 
   if (testimonials.length === 0) return null;
 
@@ -198,7 +214,7 @@ export function Testimonials() {
             swipeStart.current = null;
           }}
         >
-          <div className="relative h-[22rem] sm:h-[21rem]">
+          <div className="relative h-[16rem]">
             <AnimatePresence initial={false} mode="wait" custom={slideCustom}>
               <motion.ul
                 key={`${activeIndex}-${itemsPerPage}`}
@@ -219,7 +235,19 @@ export function Testimonials() {
               >
                 {visibleTestimonials.map((testimonial) => (
                   <li key={testimonial.id} className="min-w-0">
-                    <figure className="testimonial-card group relative flex h-full min-h-[22rem] flex-col px-7 pb-10 pt-12 shadow-[0_20px_50px_-28px_rgba(8,8,8,0.24)] transition-all duration-300 sm:min-h-[21rem] sm:px-9 sm:pb-11">
+                    <figure
+                      className="testimonial-card group relative flex h-full min-h-0 cursor-pointer flex-col px-7 pb-5 pt-10 shadow-[0_20px_50px_-28px_rgba(8,8,8,0.24)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent sm:px-9 sm:pb-5"
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Read the full testimonial from ${testimonial.name}`}
+                      onClick={() => setSelectedTestimonial(testimonial)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          setSelectedTestimonial(testimonial);
+                        }
+                      }}
+                    >
                       <div className="testimonial-avatar absolute left-[7%] top-0 flex h-[5.25rem] w-[5.25rem] -translate-y-[42%] items-center justify-center overflow-hidden rounded-full border-4 border-white bg-white p-1 shadow-[0_5px_18px_-8px_rgba(8,8,8,0.28)] ring-1 ring-accent">
                         {testimonial.avatar ? (
                           <Image
@@ -227,7 +255,7 @@ export function Testimonials() {
                             alt={`${testimonial.name} profile`}
                             fill
                             sizes="72px"
-                            className="object-cover"
+                            className={`object-cover ${testimonial.id === "glz-digital-marketing-founder" || testimonial.id === "yucca-packaging" ? "object-[center_10%]" : testimonial.id === "core-atelier-founder" ? "object-[center_12%]" : "object-center"}`}
                           />
                         ) : (
                           <span className="flex h-full w-full items-center justify-center rounded-full bg-[#f1f3eb]">
@@ -259,8 +287,8 @@ export function Testimonials() {
                         </p>
                       )}
 
-                      <blockquote className="relative z-10 mt-7 max-w-[38rem] text-left text-sm leading-[1.8] text-body sm:text-base">
-                        {testimonial.quote}
+                      <blockquote className="mt-3 line-clamp-3 max-w-[38rem] text-left text-sm leading-[1.55] text-body sm:text-base">
+                        {testimonial.excerpt ?? testimonial.quote}
                       </blockquote>
 
                       <div className="mt-auto flex items-end justify-between pt-5">
@@ -271,7 +299,7 @@ export function Testimonials() {
                         )}
                         <span
                           aria-hidden="true"
-                          className="pointer-events-none ml-auto h-12 font-display text-[5rem] font-bold leading-[0.9] text-accent/80 transition-transform duration-300 group-hover:translate-y-1"
+                          className="pointer-events-none ml-auto h-8 font-display text-[4rem] font-bold leading-[0.8] text-accent/80 transition-transform duration-300 group-hover:translate-y-1"
                         >
                           ”
                         </span>
@@ -323,6 +351,40 @@ export function Testimonials() {
           </div>
         </div>
       </div>
+
+      {selectedTestimonial && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/55 p-4"
+          onClick={() => setSelectedTestimonial(null)}
+        >
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="testimonial-dialog-title"
+            className="relative w-full max-w-2xl rounded-3xl bg-white p-7 text-ink shadow-2xl sm:p-10"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedTestimonial(null)}
+              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-2xl text-ink transition-colors hover:border-accent hover:bg-accent hover:text-white"
+              aria-label="Close testimonial"
+            >
+              ×
+            </button>
+            <p className="pr-12 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+              Client testimonial
+            </p>
+            <h3 id="testimonial-dialog-title" className="mt-3 font-display text-2xl font-bold sm:text-3xl">
+              {selectedTestimonial.name}
+            </h3>
+            <p className="mt-1 text-sm text-muted">{selectedTestimonial.role}</p>
+            <blockquote className="mt-7 max-h-[60vh] overflow-y-auto text-base leading-8 text-body sm:text-lg">
+              {selectedTestimonial.quote}
+            </blockquote>
+          </section>
+        </div>
+      )}
     </section>
   );
 }
