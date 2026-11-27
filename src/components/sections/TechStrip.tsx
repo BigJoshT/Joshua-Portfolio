@@ -62,7 +62,7 @@ export function TechStrip() {
   return (
     <section
       aria-labelledby="tech-heading"
-      className="border-y border-line bg-surface py-14 md:py-16"
+      className="border-y border-line bg-surface py-20 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal>

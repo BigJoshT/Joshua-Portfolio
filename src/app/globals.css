@@ -583,16 +583,10 @@
   background-size: 28px 28px;
 }
 
-/* Keep the active portfolio project readable on phones without the adjacent
-   cards competing for the same narrow carousel stage. */
+/* Keep neighboring project previews visible beside the active card on phones. */
 @media (max-width: 639px) {
-  .project-carousel-position[data-active="false"] {
-    visibility: hidden;
-    pointer-events: none !important;
-  }
-
   .project-carousel-position[data-active="true"] {
-    width: min(calc(100vw - 2rem), 35.625rem) !important;
+    width: min(64vw, 35.625rem) !important;
     height: 32rem !important;
   }
 }

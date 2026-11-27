@@ -7,7 +7,14 @@ import {
   useReducedMotion,
   type Variants,
 } from "motion/react";
-import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type PointerEvent,
+  type WheelEvent as ReactWheelEvent,
+} from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { testimonials, type Testimonial } from "@/data/testimonials";
 
@@ -87,6 +94,9 @@ export function Testimonials() {
   const [direction, setDirection] = useState(1);
   const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  const wheelDistance = useRef(0);
+  const wheelLocked = useRef(false);
+  const wheelTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 768px)");
@@ -110,6 +120,15 @@ export function Testimonials() {
       window.removeEventListener("keydown", handleDialogKeyDown);
     };
   }, [selectedTestimonial]);
+
+  useEffect(
+    () => () => {
+      if (wheelTimer.current !== null) {
+        window.clearTimeout(wheelTimer.current);
+      }
+    },
+    [],
+  );
 
   if (testimonials.length === 0) return null;
 
@@ -153,6 +172,32 @@ export function Testimonials() {
     }
 
     changePage(deltaX < 0 ? 1 : -1);
+  };
+
+  const handleWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) {
+      wheelDistance.current = 0;
+      return;
+    }
+
+    if (wheelTimer.current !== null) {
+      window.clearTimeout(wheelTimer.current);
+    }
+    wheelTimer.current = window.setTimeout(() => {
+      wheelLocked.current = false;
+      wheelDistance.current = 0;
+      wheelTimer.current = null;
+    }, 240);
+
+    if (wheelLocked.current) return;
+
+    wheelDistance.current += event.deltaX;
+    if (Math.abs(wheelDistance.current) < 45) return;
+
+    const step = wheelDistance.current > 0 ? 1 : -1;
+    wheelDistance.current = 0;
+    wheelLocked.current = true;
+    changePage(step);
   };
 
   const visibleTestimonials = Array.from({ length: itemsPerPage }, (_, offset) =>
@@ -210,6 +255,7 @@ export function Testimonials() {
           onKeyDown={handleKeyDown}
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
+          onWheel={handleWheel}
           onPointerCancel={() => {
             swipeStart.current = null;
           }}

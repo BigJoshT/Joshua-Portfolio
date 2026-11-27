@@ -79,15 +79,24 @@ function ScrollingProjectPreview({
 
 export function ProjectCarousel({ projects }: { projects: Project[] }) {
   const [activeSlug, setActiveSlug] = useState(projects[0]?.slug ?? "");
+  const stageRef = useRef<HTMLDivElement>(null);
   const dragStart = useRef<{ x: number; y: number } | null>(null);
   const ignoreClick = useRef(false);
   const activeCardRef = useRef<HTMLAnchorElement>(null);
   const focusActiveAfterMove = useRef(false);
+  const wheelDistance = useRef(0);
+  const wheelLocked = useRef(false);
+  const wheelTimer = useRef<number | null>(null);
   const activeIndex = Math.max(
     0,
     projects.findIndex((project) => project.slug === activeSlug),
   );
+  const activeIndexRef = useRef(activeIndex);
   const activeProject = projects[activeIndex];
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
 
   useEffect(() => {
     if (!focusActiveAfterMove.current) return;
@@ -95,12 +104,56 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
     activeCardRef.current?.focus();
   }, [activeIndex]);
 
-  if (!activeProject) return null;
-
   const moveBy = (amount: number) => {
     const nextIndex = (activeIndex + amount + projects.length) % projects.length;
     setActiveSlug(projects[nextIndex].slug);
   };
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const handleWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) {
+        wheelDistance.current = 0;
+        return;
+      }
+
+      event.preventDefault();
+      if (wheelTimer.current !== null) {
+        window.clearTimeout(wheelTimer.current);
+      }
+      wheelTimer.current = window.setTimeout(() => {
+        wheelLocked.current = false;
+        wheelDistance.current = 0;
+        wheelTimer.current = null;
+      }, 240);
+
+      if (wheelLocked.current) return;
+
+      wheelDistance.current += event.deltaX;
+      if (Math.abs(wheelDistance.current) < 45) return;
+
+      const direction = wheelDistance.current > 0 ? 1 : -1;
+      wheelDistance.current = 0;
+      wheelLocked.current = true;
+      const nextIndex =
+        (activeIndexRef.current + direction + projects.length) % projects.length;
+      activeIndexRef.current = nextIndex;
+      setActiveSlug(projects[nextIndex].slug);
+    };
+
+    stage.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      stage.removeEventListener("wheel", handleWheel);
+      if (wheelTimer.current !== null) {
+        window.clearTimeout(wheelTimer.current);
+        wheelTimer.current = null;
+      }
+      wheelLocked.current = false;
+      wheelDistance.current = 0;
+    };
+  }, [projects]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowRight") {
@@ -144,6 +197,8 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
     ignoreClick.current = false;
   };
 
+  if (!activeProject) return null;
+
   return (
     <div
       className="project-carousel"
@@ -152,6 +207,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
       aria-roledescription="carousel"
     >
       <div
+        ref={stageRef}
         className="project-carousel-stage relative mx-[-1rem] h-[34rem] overflow-hidden sm:mx-0 sm:h-[37rem] lg:h-[39rem]"
         onKeyDown={handleKeyDown}
         onPointerDown={handlePointerDown}
