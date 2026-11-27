@@ -74,7 +74,7 @@ export function OrbitCanvas() {
   return (
     <div
       ref={wrapRef}
-      className="relative mx-auto aspect-square w-full max-w-[520px] touch-none"
+      className="relative mx-auto aspect-square w-full max-w-[520px] touch-pan-y"
     >
       <Canvas
         // Scrolled away → "never": the GPU stops completely.
