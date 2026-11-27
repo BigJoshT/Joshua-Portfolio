@@ -455,6 +455,36 @@
   pointer-events: auto;
 }
 
+.service-card-toggle {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .service-card-details {
+    display: none;
+  }
+
+  .service-glass-card[data-expanded="true"] .service-card-details {
+    display: flex;
+  }
+
+  .service-card-toggle {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+    place-items: center;
+    margin: -0.5rem -0.5rem 0 0;
+    border: 1px solid rgba(8, 8, 8, 0.12);
+    border-radius: 9999px;
+    color: var(--color-ink);
+  }
+
+  .service-glass-card[data-expanded="true"] .service-card-toggle svg {
+    transform: rotate(180deg);
+  }
+}
+
 @supports not (
   (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
 ) {

@@ -2,6 +2,7 @@
 
 import {
   useEffect,
+  useId,
   useRef,
   useState,
   type PointerEvent as ReactPointerEvent,
@@ -14,8 +15,10 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   const cardRef = useRef<HTMLElement | null>(null);
   const frameRef = useRef<number | null>(null);
   const pointerRef = useRef({ x: 0, y: 0 });
+  const detailsId = useId();
   const [visible, setVisible] = useState(false);
   const [compact, setCompact] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
@@ -87,6 +90,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
     >
       <article
         ref={cardRef}
+        data-expanded={expanded}
         className={`service-glass-card group flex h-full flex-col rounded-2xl p-5 sm:p-6${visible ? " is-visible" : ""}`}
         onPointerEnter={(event) => {
           if (!reduced && event.pointerType === "mouse") {
@@ -102,17 +106,44 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           className={`service-glass-sheen${visible ? " is-visible" : ""}`}
         />
         <div className="service-glass-content relative z-10 flex h-full flex-col">
-          <h4 className="font-display text-lg font-bold text-ink">
-            {service.title}
-          </h4>
+          <div className="flex items-start justify-between gap-3">
+            <h4 className="font-display text-lg font-bold text-ink">
+              {service.title}
+            </h4>
+            <button
+              type="button"
+              className="service-card-toggle"
+              aria-expanded={expanded}
+              aria-controls={detailsId}
+              aria-label={`${expanded ? "Collapse" : "Expand"} ${service.title}`}
+              onClick={() => setExpanded((isExpanded) => !isExpanded)}
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                fill="none"
+                className="h-5 w-5"
+              >
+                <path
+                  d="m5 7.5 5 5 5-5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
 
-          <p className="mt-3 grow text-base leading-relaxed text-body">
-            {service.body}
-          </p>
+          <div id={detailsId} className="service-card-details flex h-full flex-col">
+            <p className="mt-3 grow text-base leading-relaxed text-body">
+              {service.body}
+            </p>
 
-          <p className="mt-6 border-t border-ink/10 pt-4 text-sm font-semibold text-accent">
-            {service.outcome}
-          </p>
+            <p className="mt-6 border-t border-ink/10 pt-4 text-sm font-semibold text-accent">
+              {service.outcome}
+            </p>
+          </div>
         </div>
       </article>
     </motion.div>
@@ -170,8 +201,8 @@ export function Services() {
       id="services"
       className="service-atmosphere relative isolate py-16 md:py-24"
     >
-      <div className="mx-auto grid max-w-7xl items-start gap-12 px-4 sm:px-6 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-8 lg:gap-12 xl:gap-16">
-        <aside className="relative md:min-w-0 xl:sticky xl:top-[20vh] xl:self-start">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-stretch gap-6 px-4 sm:px-6 md:grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:items-start md:gap-8 lg:gap-12 xl:gap-16">
+        <aside className="sticky top-0 z-20 -mx-4 bg-canvas px-4 pt-5 pb-4 md:relative md:top-auto md:z-auto md:mx-0 md:min-w-0 md:bg-transparent md:px-0 md:pt-0 md:pb-0 xl:sticky xl:top-[20vh] xl:self-start">
           <div className="relative pl-6 sm:pl-8">
             <div
               aria-hidden
@@ -201,7 +232,7 @@ export function Services() {
           </div>
         </aside>
 
-        <div className="min-w-0 space-y-12 md:space-y-14">
+        <div className="min-w-0 space-y-6 md:space-y-14">
           <ServiceGroup title="New Websites" items={build} />
           <ServiceGroup title="Improve, Move, Maintain" items={support} />
         </div>
