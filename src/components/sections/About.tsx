@@ -20,6 +20,7 @@ export function About() {
                 alt={`${site.name}, web designer`}
                 fill
                 placeholder="blur"
+                quality={90}
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover lg:object-top"
               />
