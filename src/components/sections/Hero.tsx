@@ -29,15 +29,15 @@ export function Hero() {
 
   // min-h (not a fixed h): on short viewports the section grows instead of
   // centring-overflow pushing the top under the fixed navbar. The grid's
-  // padding-top (7rem) clears the navbar's 87px bottom edge with room to spare.
+  // Mobile padding clears the fixed navbar; larger screens keep their wider layout spacing.
   return (
     <section className="navy-panel relative flex min-h-[100svh] items-center overflow-hidden py-8 lg:py-0">
       <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-6 px-4 pt-28 pb-8 sm:px-6 sm:pt-32 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-24 lg:pb-10">
         {/* ---------------- copy ---------------- */}
-        <div className="min-w-0">
+        <div className="flex min-w-0 min-h-[min(36rem,calc(100svh-10rem))] flex-col items-center justify-between text-center sm:min-h-0 sm:block sm:text-left">
           <motion.h1
             {...rise(0)}
-            className="max-w-[22ch] text-white text-balance text-[clamp(2.25rem,3.8vw,3.25rem)] font-bold leading-[1.04] tracking-[-0.03em]"
+            className="hero-mobile-inset mx-auto max-w-[22ch] text-white text-balance text-[clamp(1.875rem,9.2vw,2.25rem)] font-bold leading-[1] tracking-[-0.03em] sm:mx-0 sm:text-[clamp(2.25rem,3.8vw,3.25rem)] sm:leading-[1.04]"
           >
             I design and redesign websites that{" "}
             <span className="text-accent">make your business stand out</span>.
@@ -45,25 +45,25 @@ export function Hero() {
 
           <motion.p
             {...rise(0.08)}
-            className="mt-3 max-w-lg text-[clamp(1rem,1.4vw,1.125rem)] leading-relaxed text-on-navy/80"
+            className="hero-mobile-inset mx-auto mt-5 max-w-lg text-[clamp(0.9375rem,4vw,1rem)] leading-relaxed text-on-navy/80 sm:mx-0 sm:mt-3 sm:text-[clamp(1rem,1.4vw,1.125rem)]"
           >
             I create modern, visually appealing and easy to use websites that
             showcase your brand, connect with your audience, and help your
             business grow.
           </motion.p>
 
-          <motion.div {...rise(0.16)} className="mt-4 flex flex-wrap gap-3">
-            <Button href="/portfolio">
+          <motion.div {...rise(0.16)} className="mt-5 flex flex-wrap justify-center gap-1 sm:mt-4 sm:justify-start sm:gap-3">
+            <Button href="/portfolio" className="hero-mobile-cta">
               See my work
             </Button>
-            <Button href="/#contact" variant="onNavy">
+            <Button href="/#contact" variant="onNavy" className="hero-mobile-cta">
               Start a project
             </Button>
           </motion.div>
 
           <motion.div
             {...rise(0.24)}
-            className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-line-navy pt-4"
+            className="mt-0 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-3 border-t border-line-navy pt-4 text-center sm:mt-5 sm:justify-start sm:gap-x-8 sm:text-left"
           >
             {[
               {
@@ -82,7 +82,7 @@ export function Hero() {
                 <p className="font-display text-xl font-bold text-white">
                   <Counter to={value} suffix={suffix} />
                 </p>
-                <p className="mt-0.5 text-sm text-on-navy/60">{label}</p>
+                <p className="mt-0.5 text-[13px] text-on-navy/60 sm:text-sm">{label}</p>
               </div>
             ))}
           </motion.div>

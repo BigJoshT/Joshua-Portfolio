@@ -585,9 +585,38 @@
 
 /* Keep neighboring project previews visible beside the active card on phones. */
 @media (max-width: 639px) {
+  .hero-mobile-cta {
+    gap: 0.375rem;
+    padding: 0.5rem 0.625rem;
+    font-size: 0.875rem;
+  }
+
+  .hero-mobile-inset {
+    padding-inline: 50px;
+  }
+
+  .project-carousel-stage {
+    height: 25rem !important;
+  }
+
+  .project-carousel-position {
+    height: auto !important;
+  }
+
   .project-carousel-position[data-active="true"] {
     width: min(64vw, 35.625rem) !important;
-    height: 32rem !important;
+  }
+}
+
+@media (max-width: 389px) {
+  .hero-mobile-inset {
+    padding-inline: 46px;
+  }
+}
+
+@media (max-width: 359px), (max-width: 639px) and (max-height: 600px) {
+  .hero-mobile-inset {
+    padding-inline: 0;
   }
 }
 

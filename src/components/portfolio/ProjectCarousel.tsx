@@ -248,18 +248,18 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
                       />
                       <div className="pointer-events-none absolute inset-0 z-10 flex flex-col justify-between p-5 sm:p-7">
                         <div className="flex items-center justify-between gap-3">
-                          <span className="rounded-full border border-white/25 bg-black/20 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm">
+                          <span className="rounded-full border border-white/25 bg-black/20 px-3 py-1 text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm sm:text-[0.65rem]">
                             {project.category}
                           </span>
-                          <span className="text-xs font-medium text-white/80">
+                          <span className="text-[0.625rem] font-medium text-white/80 sm:text-xs">
                             {project.year}
                           </span>
                         </div>
                         <div>
-                          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                          <p className="text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-accent sm:text-xs">
                             Project preview
                           </p>
-                          <p className="mt-2 max-w-[15ch] font-display text-2xl font-bold leading-tight text-white sm:text-4xl">
+                          <p className="mt-2 max-w-[15ch] font-display text-lg font-bold leading-tight text-white sm:text-4xl">
                             {project.platform ?? project.category}
                           </p>
                         </div>
@@ -284,18 +284,18 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
                     }}
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <span className="rounded-full border border-white/25 bg-black/20 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm">
+                      <span className="rounded-full border border-white/25 bg-black/20 px-3 py-1 text-[0.55rem] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm sm:text-[0.65rem]">
                         {project.category}
                       </span>
-                      <span className="text-xs font-medium text-white/65">
+                      <span className="text-[0.625rem] font-medium text-white/65 sm:text-xs">
                         {project.year}
                       </span>
                     </div>
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                      <p className="text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-accent sm:text-xs">
                         Project preview
                       </p>
-                      <p className="mt-2 max-w-[15ch] font-display text-2xl font-bold leading-tight text-white sm:text-4xl">
+                      <p className="mt-2 max-w-[15ch] font-display text-lg font-bold leading-tight text-white sm:text-4xl">
                         {project.platform ?? project.category}
                       </p>
                     </div>
@@ -324,7 +324,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
                 <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-body sm:text-base">
                   {project.summary}
                 </p>
-                <span className="mt-auto pt-4 text-xs font-semibold uppercase tracking-wider text-muted">
+                <span className="mt-4 pt-0 text-xs font-semibold uppercase tracking-wider text-muted sm:mt-auto sm:pt-4">
                   {isActive ? "Open project details" : "Select project"}
                 </span>
               </div>
