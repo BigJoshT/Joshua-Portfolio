@@ -228,7 +228,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
           const [from, to] = project.cover;
           const isActive = index === activeIndex;
           const sizeClassName =
-            "h-[32rem] sm:h-[34rem] lg:h-[36rem] w-[min(calc(100vw-2rem),35.625rem)] sm:w-[min(78vw,35.625rem)]";
+            "sm:h-[34rem] lg:h-[36rem] w-[min(calc(100vw-2rem),35.625rem)] sm:w-[min(78vw,35.625rem)]";
 
           const contents = (
             <>
@@ -303,7 +303,7 @@ export function ProjectCarousel({ projects }: { projects: Project[] }) {
                 )}
               </div>
 
-              <div className="flex min-h-44 grow flex-col p-5 sm:min-h-48 sm:p-6">
+              <div className="flex flex-col p-5 sm:min-h-48 sm:grow sm:p-6">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="text-xs font-semibold uppercase tracking-wider text-accent">

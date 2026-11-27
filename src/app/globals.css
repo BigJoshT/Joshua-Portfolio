@@ -614,9 +614,31 @@
   }
 }
 
-@media (max-width: 359px), (max-width: 639px) and (max-height: 600px) {
+@media (max-width: 359px) {
   .hero-mobile-inset {
-    padding-inline: 0;
+    padding-inline: 16px;
+  }
+
+  .hero-mobile-heading {
+    font-size: 26px;
+  }
+
+  .hero-mobile-description {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 639px) and (max-height: 600px) {
+  .hero-mobile-inset {
+    padding-inline: 24px;
+  }
+
+  .hero-mobile-heading {
+    font-size: 26px;
+  }
+
+  .hero-mobile-description {
+    font-size: 14px;
   }
 }
 

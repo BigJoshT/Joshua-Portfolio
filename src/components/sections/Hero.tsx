@@ -37,7 +37,7 @@ export function Hero() {
         <div className="flex min-w-0 min-h-[min(36rem,calc(100svh-10rem))] flex-col items-center justify-between text-center sm:min-h-0 sm:block sm:text-left">
           <motion.h1
             {...rise(0)}
-            className="hero-mobile-inset mx-auto max-w-[22ch] text-white text-balance text-[clamp(1.875rem,9.2vw,2.25rem)] font-bold leading-[1] tracking-[-0.03em] sm:mx-0 sm:text-[clamp(2.25rem,3.8vw,3.25rem)] sm:leading-[1.04]"
+            className="hero-mobile-heading hero-mobile-inset mx-auto max-w-[22ch] text-white text-balance text-[clamp(1.875rem,9.2vw,2.25rem)] font-bold leading-[1] tracking-[-0.03em] sm:mx-0 sm:text-[clamp(2.25rem,3.8vw,3.25rem)] sm:leading-[1.04]"
           >
             I design and redesign websites that{" "}
             <span className="text-accent">make your business stand out</span>.
@@ -45,7 +45,7 @@ export function Hero() {
 
           <motion.p
             {...rise(0.08)}
-            className="hero-mobile-inset mx-auto mt-5 max-w-lg text-[clamp(0.9375rem,4vw,1rem)] leading-relaxed text-on-navy/80 sm:mx-0 sm:mt-3 sm:text-[clamp(1rem,1.4vw,1.125rem)]"
+            className="hero-mobile-description hero-mobile-inset mx-auto mt-5 max-w-lg text-[clamp(0.9375rem,4vw,1rem)] leading-relaxed text-on-navy/80 sm:mx-0 sm:mt-3 sm:text-[clamp(1rem,1.4vw,1.125rem)]"
           >
             I create modern, visually appealing and easy to use websites that
             showcase your brand, connect with your audience, and help your
